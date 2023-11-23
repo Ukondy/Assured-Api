@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 
 import static io.restassured.RestAssured.given;
 
-public class RegresTest {
+public class ReqresTest {
     private final static String URL = "https://reqres.in";
 
     @Test
