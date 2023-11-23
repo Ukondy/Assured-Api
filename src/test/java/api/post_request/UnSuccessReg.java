@@ -1,4 +1,4 @@
-package api;
+package api.post_request;
 
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;

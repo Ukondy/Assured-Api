@@ -1,4 +1,4 @@
-package api;
+package api.util;
 
 import io.restassured.RestAssured;
 import io.restassured.builder.RequestSpecBuilder;
@@ -23,6 +23,11 @@ public class Specifications {
     public static ResponseSpecification responseSpecERR400() {
         return new ResponseSpecBuilder()
                 .expectStatusCode(400)
+                .build();
+    }
+    public static ResponseSpecification responseSpecUnique(int status) {
+        return new ResponseSpecBuilder()
+                .expectStatusCode(status)
                 .build();
     }
 

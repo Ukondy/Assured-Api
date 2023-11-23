@@ -1,8 +1,17 @@
 package api;
 
-import jdk.nashorn.internal.parser.Token;
+import api.get_request.ColorsData;
+import api.get_request.UserData;
+import api.post_request.Register;
+import api.post_request.SuccessReg;
+import api.post_request.UnSuccessReg;
+import api.put_request.UserTime;
+import api.put_request.UserTimeResponse;
+import api.util.Specifications;
 import org.junit.Assert;
 import org.junit.Test;
+
+import java.time.Clock;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -76,5 +85,30 @@ public class RegresTest {
         List<Integer> years = colors.stream().map(ColorsData::getYear).collect(Collectors.toList());
         List<Integer> sortedYears = years.stream().sorted().collect(Collectors.toList());
         Assert.assertEquals(sortedYears, years);
+    }
+
+    @Test
+    public void deleteUserTest() {
+        Specifications.installSpecification(Specifications.requestSpec(URL), Specifications.responseSpecUnique(204));
+        given()
+                .when()
+                .delete("api/users/2")
+                .then().log().all();
+    }
+
+    @Test
+    public void timeTest() {
+        Specifications.installSpecification(Specifications.requestSpec(URL), Specifications.responseSpecOK200());
+        UserTime user = new UserTime("morpheus", "zion resident");
+        UserTimeResponse response = given()
+                .body(user)
+                .when()
+                .put("api/users/2")
+                .then().log().all()
+                .extract().as(UserTimeResponse.class);
+
+        String regex = "(.{5})$";
+        String currentTime = Clock.systemUTC().instant().toString().replaceAll(regex, "");
+        Assert.assertEquals(currentTime, response.getUpdatedAt().replaceAll(regex, ""));
     }
 }

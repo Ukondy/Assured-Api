@@ -1,17 +1,15 @@
-package api;
+package api.post_request;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
-public class UserData {
-    private Integer id;
+@Setter
+public class Register {
     private String email;
-    private String first_name;
-    private String last_name;
-    private String avatar;
-
+    private String password;
 }
